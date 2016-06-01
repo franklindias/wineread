@@ -47,8 +47,8 @@ def detailed(request):
 	for row in data:
 		filterdata.append(float(row[selectedKey]))
 
-	filterdata.sort()
-
 	frequency = collections.Counter(filterdata)
+
+	frequency = collections.OrderedDict(sorted(frequency.items()))
 
 	return render(request, 'detalhada.html', {'filterdata':filterdata,'frequency':frequency.items(),'keys':keys, 'selectedKey':selectedKey})

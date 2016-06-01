@@ -12,6 +12,15 @@ def keyvalue(dict, key):
 def freqRelative(value):
     return str(100 * value / 178)+'%'
 
+@register.filter
+def freqAccum(value, key):
+    soma = 0
+    
+    for val in list(value)[0:key]:
+        soma = soma + val[1]
+
+    return soma
+
 @register.tag(name="randomgen")
 def randomgen(parser, token):
     items = []

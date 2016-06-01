@@ -73,8 +73,9 @@
 			  <thead>
 			  	<tr>
 			  		<th>{{ selectedKey }}</th>
-			  		<th>Absolute Frequency</th>
-			  		<th>Relative Frequency</th>
+			  		<th>Absolute</th>
+			  		<th>Relative </th>
+			  		<th>Accumulative</th>
 			  	</tr>
 			  	</thead>
 			  	<tbody>
@@ -83,6 +84,7 @@
 			  			<td>{{ k }}</td> 
 			  			<td>{{ v }}</td> 
 			  			<td>{{ v|freqRelative }}</td>
+			  			<td>{{ frequency|freqAccum:forloop.counter  }}</td>
 			  		</tr>
 					{% endfor %}
 			  	</tbody>
