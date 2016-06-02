@@ -10,8 +10,8 @@ def keyvalue(dict, key):
 
 @register.filter
 def freqRelative(value):
-    return str(100 * value / 178)+'%'
-
+    return str(100 * value / 178)
+    
 @register.filter
 def freqAccum(value, key):
     soma = 0

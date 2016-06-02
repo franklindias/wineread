@@ -18,7 +18,8 @@ from django.contrib import admin
 from wineread.core.views import *
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
+   # url(r'^admin/', admin.site.urls),
+    url(r'^$', all),
     url(r'^full/', all),
     url(r'^detailed/', detailed)
 ]

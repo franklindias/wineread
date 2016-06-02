@@ -3,6 +3,7 @@ import csv
 import json
 import urllib.request as urllib
 import collections
+from django.conf import settings
 
 
 
@@ -15,7 +16,7 @@ def all(request):
 		"Flavanoids", "N. Phenols", "Proanthocyanins", "Color Int.", "Hue", "OD280/OD315 of diluted wines",
 		"Proline"]
 
-	url = 'wine.csv'
+	url = BASE_DIR+'/wine.csv'
 
 	with open(url, 'r') as f:
 	    reader = csv.reader(f) 
@@ -35,7 +36,7 @@ def detailed(request):
 		"Flavanoids", "N. Phenols", "Proanthocyanins", "Color Int.", "Hue", "OD280/OD315 of diluted wines",
 		"Proline"]
 
-	url = 'wine.csv'
+	url = settings.BASE_DIR+'/wine.csv'
 
 	with open(url, 'r') as f:
 	    reader = csv.reader(f) 

@@ -16,6 +16,8 @@
 
 	<script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 
+	<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 	
 </head>
 <body>
@@ -66,7 +68,20 @@
 		<br/>
 		<div class="row">
 			<div class="col-md-6">
+				<ul class="nav nav-tabs">
+			    <li class="active"><a data-toggle="tab" href="#freqChart" >Frequencies</a></li>
+			    <li><a data-toggle="tab" href="#freqFigth">Abs x Rel x Acc</a></li>
+			  </ul>
+
+			  <div class="tab-content">
+			  <div id="freqChart" class="tab-pane fade in active">
 				<canvas id="myChart" width="400" height="300"></canvas>
+			  </div>
+			  <div id="freqFigth" class="tab-pane fade">
+			    <canvas id="chartLine" width="400" height="300"></canvas>
+			  </div>
+			</div>
+
 			</div>
 			<div class="col-md-6">
 				<table class="table table-striped" id="myTable">
@@ -83,7 +98,7 @@
 			  		<tr>		
 			  			<td>{{ k }}</td> 
 			  			<td>{{ v }}</td> 
-			  			<td>{{ v|freqRelative }}</td>
+			  			<td>{{ v|freqRelative }}%</td>
 			  			<td>{{ frequency|freqAccum:forloop.counter  }}</td>
 			  		</tr>
 					{% endfor %}
@@ -117,7 +132,7 @@ var myChart = new Chart(ctx, {
         	{% endfor %}
         ],
         datasets: [{
-            label: '# Frequency',
+            label: ['# Frequency (>2)'],
             data: [
 	            {% for k, v in frequency %}
 		            {%  if v > 2 %}
@@ -144,7 +159,77 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+
+var ctx2 = document.getElementById("chartLine");
+
+var data = {
+	    labels: [{% for k, v in frequency %}
+			  			"{{ k }}",
+					{% endfor %}],  
+	    datasets: [ 
+	        {
+	            label: "Absoluta",
+	            fill: false,
+	            lineTension: 0,
+	            backgroundColor: "rgba(111, 191, 194, 0.2)",
+	            borderColor: "rgba(111, 191, 194, 1)",
+	            radius: 0,
+	            
+	            data: [
+	            	{% for k, v in frequency %}
+			  			{{ v }},
+					{% endfor %}
+					],
+	        }, {
+	            label: "Relativa (%)",
+	            fill: false,
+	            lineTension: 0,
+	            backgroundColor: "rgba(210, 126, 16, 0.2)",
+	            borderColor: "rgba(210, 126, 16, 1)",
+	            radius: 0,
+	            
+	            data: [
+	            	{% for k, v in frequency %}
+			  			{{ v|freqRelative }},
+					{% endfor %}
+					],
+	        },
+	        {
+	            label: "Accumulative",
+	            fill: false,
+	            lineTension: 0,
+	            backgroundColor: "rgba(76, 114, 238, 0.2)",
+	            borderColor: "rgba(76, 114, 238, 1)",
+	            radius: 0,
+	            
+	            data: [
+	            	{% for k, v in frequency %}
+			  			{{ frequency|freqAccum:forloop.counter }},
+					{% endfor %}
+					],
+	        }
+	    ]
+	};
+
+var options = {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
+        },
+
+    };
+
+var myLineChart = Chart.Line(ctx2, {
+    data: data,
+    options: options
+});
+
 </script>
+
+
 
 </body>
 </html>
