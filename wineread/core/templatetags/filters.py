@@ -1,8 +1,41 @@
 from django import template
 import os
 import random
+import math
 
 register = template.Library()
+
+@register.filter(name='media')
+def med(dict):
+    sum = 0
+    for v in dict:
+        print (v)
+        sum += v 
+    
+    return sum/178
+
+@register.filter(name='vari')
+def vari(dict):
+    media = med(dict)
+    acc = 0
+    for v in dict:
+        acc += (v - media)**2 
+
+    return acc/(178-1)
+
+@register.filter(name='desvp')
+def vari(dict):
+    media = med(dict)
+    acc = 0
+    for v in dict:
+        acc += (v - media)**2 
+
+    return math.sqrt(acc/(178-1))
+
+@register.filter(name='amp')
+def amp(dict):
+    return max(dict) - min(dict)
+
 
 @register.filter(name='keyvalue')
 def keyvalue(dict, key):    

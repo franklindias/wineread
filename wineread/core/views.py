@@ -16,7 +16,7 @@ def all(request):
 		"Flavanoids", "N. Phenols", "Proanthocyanins", "Color Int.", "Hue", "OD280/OD315 of diluted wines",
 		"Proline"]
 
-	url = BASE_DIR+'/wine.csv'
+	url = settings.BASE_DIR+'/wine.csv'
 
 	with open(url, 'r') as f:
 	    reader = csv.reader(f) 
