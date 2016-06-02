@@ -9,7 +9,6 @@ register = template.Library()
 def med(dict):
     sum = 0
     for v in dict:
-        print (v)
         sum += v 
     
     return sum/178
